@@ -1,6 +1,7 @@
 # API express sqLite
 
 - cors
+- express-basic-auth
 
 ## Start Project:
 `npm run dev`

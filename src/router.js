@@ -1,9 +1,27 @@
-// arquivo router.js melhor escabalidade, manutencao do code
+// arquivo router.js melhor escalabilidade, manutencao do code
 
 // openDb
 //import { openDb } from './configDB.js'
 import { createTable, insertPessoa, updatePessoa, selectPessoas, selectPessoa, deletePessoa, Home, dashboardAdmin, loginHandler } from './Controler/Pessoa.js'
 import express, { Router } from 'express'
+import basicAuth from 'express-basic-auth'
+
+
+// Define your credentials
+const users = {
+  'geraldo': '12@'
+};
+
+// Middleware for basic authentication
+const authMiddleware = basicAuth({
+  users: users,
+  challenge: true,
+  unauthorizedResponse: { // Resposta personalizada para solicitações não autorizadas
+    status: 401,
+    message: 'Acesso não autorizado'
+  } // Respond with 401 authentication challenge
+},
+);
 
 const router = Router()
 
@@ -15,7 +33,7 @@ router.get('/status', (req, res) => {
     "message": "API running"
   })
 })
-router.get('/admin', dashboardAdmin)
+router.get('/admin',authMiddleware, dashboardAdmin)
 router.get('/login', loginHandler)
 
 
@@ -24,6 +42,7 @@ router.get('/pessoas', selectPessoas)
 router.get('/pessoa', selectPessoa)
 router.post('/pessoa', insertPessoa)
 router.delete('/pessoa', deletePessoa)
+
 // previous way to study
 router.put('/pessoa', (req, res) => {
   if (req.body && !req.body.id) {
@@ -37,15 +56,13 @@ router.put('/pessoa', (req, res) => {
     statusCode: 200,
   })
 })
+
 // custom logout basic auth
-/* router.get('/logout', (req, res) => {
+ router.get('/logout', (req, res) => {
   // Respond with 401 status code to clear browser credentials
   res.status(401).send('Logged out');
 });
- */
-
-
-
+ 
 
 
 /* createTable()

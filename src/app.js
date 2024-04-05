@@ -9,8 +9,10 @@ import basicAuth from 'express-basic-auth'
 
 const port = 4000
 const app = express()
+
 app.use(express.json())
 app.use(router)
+
 // Sample way serve static files from the 'public' directory
 app.use(express.static('public'))
 
@@ -40,64 +42,10 @@ app.use((req, res, next) => {
 })
 
 /* === Middwares === */
-/* 
+
 //👉 using express-basic-auth + logout router
 //only works router acima
-
 app.use(basicAuth)
-
-// Define your credentials
-const users = {
-  'geraldo': '12@'
-};
-
-// Middleware for basic authentication
-const authMiddleware = basicAuth({
-  users: users,
-  challenge: true // Respond with 401 authentication challenge
-});
-
-app.use('/admin', authMiddleware) */
-
-
-
-/* ==== 👉 manual auth  ====  */
-// only works if router vim depois
-// protect but no offer a prompt
-// send a get in post
-
-function authMiddleware(req, res, next) {
-  const auth = req.headers.authorization
- //  console.log(req.headers) 
- console.log(`authMiddleware`,req.headers)
-
- if (auth && auth.startsWith('Basic ')) {
-  const encodedCredentials = auth.split(' ')[1];
-  const decodedCredentials = Buffer.from(encodedCredentials, 'base64').toString('utf-8');
-  const [username, password] = decodedCredentials.split(':');
-
-  // Now you have the username and password
-  console.log('username:', username);
-  console.log('Password:', password);
- 
-  if ( username === 'geraldo' && password === '123') {
-  return next()
-  } else {
-    res.status(401).send('Unauthorized');
-  }
-}  else {
-  res.status(401)
-  res.send('Access forbidden')
-}
- 
-}
-//app.get('/admin', authMiddleware);
-// Middleware to require authentication only for the /post route
-
-// Middleware to require authentication in all routers
-//app.use(authMiddleware)
-app.use('/admin', authMiddleware)
-//app.use('/pessoas', authMiddleware)
 
 
 
