@@ -44,6 +44,22 @@ export async function selectPessoas(req, res) {
 
 export async function selectPessoa(req, res) {
   let id = req.body.id
+
+  // query params => pessoa?itemid=123
+  /*    const itemid = req.query.itemid
+  console.log(itemid)  */
+
+  //console.log(req)
+
+  openDb().then((db) => {
+    db.get('SELECT * FROM Pessoa WHERE id=?', [id]).then((pessoa) => res.json(pessoa))
+  })
+}
+
+export async function selectPessoarouter(req, res) {
+  const { id } = req.params
+  //res.send(id)
+
   openDb().then((db) => {
     db.get('SELECT * FROM Pessoa WHERE id=?', [id]).then((pessoa) => res.json(pessoa))
   })

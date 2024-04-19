@@ -2,7 +2,7 @@
 
 // openDb
 //import { openDb } from './configDB.js'
-import { createTable, insertPessoa, updatePessoa, selectPessoas, selectPessoa, deletePessoa, Home, dashboardAdmin, loginHandler } from './Controler/Pessoa.js'
+import { createTable, insertPessoa, updatePessoa, selectPessoas, selectPessoarouter, selectPessoa, deletePessoa, Home, dashboardAdmin, loginHandler } from './Controler/Pessoa.js'
 import express, { Router } from 'express'
 import basicAuth from 'express-basic-auth'
 
@@ -40,6 +40,7 @@ router.get('/login', loginHandler)
 /* Pessoas */
 router.get('/pessoas', selectPessoas)
 router.get('/pessoa', selectPessoa)
+router.get('/pessoa/:id', selectPessoarouter)
 router.post('/pessoa', insertPessoa)
 router.delete('/pessoa', deletePessoa)
 
