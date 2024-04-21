@@ -6,7 +6,8 @@
 ## Start Project:
 `npm run dev`
 
-sqlite install two packes: https://www.npmjs.com/package/sqlite#installationW
+- sqlite install two packes: https://www.npmjs.com/package/sqlite#installationW
+- `npm install sqlite3 --save`
 
 extension:
 https://marketplace.visualstudio.com/items?itemName=cweijan.vscode-mysql-client2
@@ -20,9 +21,14 @@ npm i https -s
 - gerar certificados
   https://pt.rakko.tools/tools/46/
 
-post body
 
-```json
+
+
+
+```js
+
+- POST http://localhost:4000/pessoa
+
 {
   "nome": "John",
   "TEXT": "your text",

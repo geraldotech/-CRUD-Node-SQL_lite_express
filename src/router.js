@@ -41,7 +41,7 @@ router.get('/login', loginHandler)
 router.get('/pessoas', selectPessoas)
 router.get('/pessoa', selectPessoa)
 router.get('/pessoa/:id', selectPessoarouter)
-router.post('/pessoa', insertPessoa)
+router.post('/pessoa',authMiddleware, insertPessoa)
 router.delete('/pessoa', deletePessoa)
 
 // previous way to study

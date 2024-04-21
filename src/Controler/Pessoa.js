@@ -11,6 +11,7 @@ export function Home(req, res) {
 }
 
 export function dashboardAdmin(req, res) {
+  console.log(req.body)
   //res.render('index.html')
   res.sendFile('admin.html', { root: './public' })
 }
@@ -22,6 +23,7 @@ export function loginHandler(req, res) {
 
 export async function insertPessoa(req, res) {
   let pessoa = req.body
+
   openDb().then((db) => {
     db.run('INSERT INTO Pessoa (nome, idade) VALUES (?, ?)', [pessoa.nome, pessoa.idade])
   })
