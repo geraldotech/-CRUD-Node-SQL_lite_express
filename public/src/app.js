@@ -8,6 +8,9 @@ const app = createApp({
     const baseURL = production ? 'http://143.198.232.51:4000/pessoa' : 'http://localhost:4000/pessoa' 
     const fetchUrl = production ? `http://143.198.232.51:4000/pessoas` : `http://localhost:4000/pessoas`
 
+
+    console.log(baseURL)
+
     const name = ref('')
     const age = ref('')
     const postId = ref('')
@@ -20,7 +23,7 @@ const app = createApp({
     })
 
     const handleForm = () => {
-      console.log(`ok`)
+      console.log(selectedMethod.value)
       if (selectedMethod.value == 'post') return handlePost(baseURL)
       if (selectedMethod.value == 'delete') return handleDelete(baseURL)
       if (selectedMethod.value == 'put') return handlePut(baseURL)
@@ -82,6 +85,8 @@ const app = createApp({
         idade: age.value,
       })
 
+      console.log(json)
+
       // ajax
       const ajaxn = new XMLHttpRequest()
       ajaxn.open('POST', url)
@@ -96,7 +101,7 @@ const app = createApp({
           console.log(`Cadastrado com sucesso! ✅`)
 
           // reset form?
-          cleanInputs()
+        //  cleanInputs()
         }
       }
     }
