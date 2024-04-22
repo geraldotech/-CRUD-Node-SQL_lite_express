@@ -22,9 +22,6 @@ npm i https -s
   https://pt.rakko.tools/tools/46/
 
 
-
-
-
 ```js
 
 - POST http://localhost:4000/pessoa
@@ -36,15 +33,18 @@ npm i https -s
 }
 ```
 
-### express-basic-auth manual setup
 
-https://www.codingthesmartway.com/how-to-add-basic-authentication-to-an-express-web-app/
+## basicAuth in:
 
- express-basic-auth middleware. This middleware allows you to require HTTP Basic Authentication for specific routes.
+- HTTPie
+  
+![image](https://github.com/geraldotech/API-express-sqLite/assets/92253544/118a40df-2c2e-4d6f-aece-78b4a323a275)
 
- Go to Postman > 
+- Postman
 
-![image](https://github.com/geraldotech/-CRUD-Node-SQL_lite_express/assets/92253544/f669f5fc-658c-4c55-b25f-569357fb9525)
+![image](https://github.com/geraldotech/API-express-sqLite/assets/92253544/b2e230fb-966f-4e5d-9b79-7223a670fe9e)
+
+
 
 
 
