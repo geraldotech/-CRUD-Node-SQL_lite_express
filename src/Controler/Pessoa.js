@@ -61,6 +61,7 @@ export async function selectPessoa(req, res) {
 
 export async function selectPessoarouter(req, res) {
   const { id } = req.params
+  console.log(id)
   //res.send(id)
 
   openDb().then((db) => {

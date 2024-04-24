@@ -61,7 +61,9 @@ router.put('/pessoa', (req, res) => {
 // custom logout basic auth
  router.get('/logout', (req, res) => {
   // Respond with 401 status code to clear browser credentials
-  res.status(401).send('Logged out');
+  res.status(401).send('Logged out <a href="/admin">Log admin</a>');
+
+   
 });
  
 
