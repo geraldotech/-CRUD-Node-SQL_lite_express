@@ -3,10 +3,13 @@
 - cors
 - express-basic-auth
 - sqlite
+- VueJS3 in CSR (client Side Rendering)
 
-## Start Project:
 
-`npm run dev`
+## setup the client domain 
+
+- deploy online or local check  the url in client:
+  - `/public/src/app.js` setup baseURL and fetchUrl
 
 - sqlite install two packes: 
   - https://www.npmjs.com/package/sqlite#installationW
@@ -14,6 +17,11 @@
 
 extension:
 https://marketplace.visualstudio.com/items?itemName=cweijan.vscode-mysql-client2
+
+
+## Start Project:
+
+- `npm run dev`
 
 ## packages installed:
 
@@ -45,6 +53,11 @@ https://marketplace.visualstudio.com/items?itemName=cweijan.vscode-mysql-client2
 }
 ```
 
+## Protected Routes:
+
+ - POST
+ - /admin
+
 
 ## basicAuth in:
 
@@ -58,6 +71,9 @@ https://marketplace.visualstudio.com/items?itemName=cweijan.vscode-mysql-client2
 
 - gerar certificados
   https://pt.rakko.tools/tools/46/
+
+  
+- Melhorias if not found id of object return a custom message, actually return empty
 
 
 
