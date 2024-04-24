@@ -42,7 +42,7 @@ router.get('/pessoas', selectPessoas)
 router.get('/pessoa', selectPessoa)
 router.get('/pessoa/:id', selectPessoarouter)
 router.post('/pessoa',authMiddleware, insertPessoa)
-router.delete('/pessoa', deletePessoa)
+router.delete('/pessoa', authMiddleware, deletePessoa)
 
 // previous way to study
 router.put('/pessoa', (req, res) => {
