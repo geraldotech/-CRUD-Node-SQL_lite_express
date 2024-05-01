@@ -1,3 +1,16 @@
+:root {
+  --primary-color: #007bff; /* Primary color */
+  --secondary-color: #6c757d; /* Secondary color */
+  --success-color: #28a745; /* Success color */
+  --danger-color: #dc3545; /* Danger color */
+  --warning-color: #ffc107; /* Warning color */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
 html{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -29,4 +42,54 @@ fieldset{
 .errorMessage{
   color: red;
   border: 1px solid red;
+}
+
+.grid-container{
+  display: grid;
+  max-width: 600px;
+  margin: 0 auto;
+  grid-template-columns: repeat( 1fr); /* Two columns with equal width */
+  gap: 20px; /* Space between grid items */
+}
+
+.cards-grid-item{
+  background-color: lightblue;
+  padding: 5px;
+  gap: 20px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Buttons */
+
+.button {
+  display: inline-block;
+  padding: 5px 20px;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  /* border-radius: 5px; */
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.button.primary {
+  background-color: var(--primary-color);
+}
+.button.secondary {
+  background-color: var(--secondary-color);
+}
+.button.success {
+  background-color: var(--success-color);
+}
+.button.warning {
+  background-color: var(--warning-color);
+}
+.button.danger {
+  background-color: var(--danger-color);
+}
+
+.button:hover {
+  background-color: #0056b3;
 }

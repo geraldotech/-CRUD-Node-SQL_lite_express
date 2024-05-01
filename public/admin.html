@@ -100,7 +100,7 @@
           </p>
           <div>
             EnterID to auto fetch data:
-            <input           
+            <input
               type="text"
               placeholder="id"
               v-model="postId"
@@ -136,7 +136,7 @@
               value="12" />
           </div>
           <div>
-            <button  :disabled="userMessage">Update</button>
+            <button :disabled="userMessage">Update</button>
             <button
               type="button"
               :disabled="userMessage"
@@ -146,6 +146,30 @@
           </div>
         </form>
       </fieldset>
+
+      <p>onClick make request</p>
+      <section class="grid-container">
+        <div
+          class="cards-grid-item"
+          v-for="post in allposts">
+          <p>
+            <span>{{post.id}} - {{post.nome}}</span>
+          </p>
+          <p>
+            <span
+              class="button secondary"
+              :value="post.id"
+              @click="onInputChange">
+              EDIT
+            </span>
+            <span
+              class="button danger"
+              @click="onclickDelete(post.id)"
+              >DELETE</span
+            >
+          </p>
+        </div>
+      </section>
     </div>
 
     <a href="./fetch-auth.html">fetch auth</a>

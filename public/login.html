@@ -24,7 +24,7 @@
       <input
         type="password"
         name="password"
-        value="123"
+        value="12@"
         placeholder="password" />
       <button>Login</button>
     </form>
@@ -53,12 +53,14 @@
           },
         })
           .then((response) => {
+            console.log(response)
             if (!response.ok) {
               throw new Error('Network response was not ok')
+            
             }
           //  return response.json() 
           // works but prompt for login again!! in tests
-          return window.location.href = '/admin';
+        //  return window.location.href = '/admin';
           }) .then((data) => {
             //console.log(data)
             console.log(data)

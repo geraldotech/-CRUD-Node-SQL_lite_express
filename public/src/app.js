@@ -13,9 +13,10 @@ const app = createApp({
     const postId = ref('')
     const userMessage = ref(true)
 
-
     const userMessageInput = ref(false)
     const selectedMethod = ref('post')
+
+    const allposts = ref([])
 
     const person = reactive({
       name: 'Geraldo',
@@ -129,6 +130,7 @@ const app = createApp({
     async function fetchAPI() {
       const req = await fetch(fetchUrl)
       const data = await req.json()
+      allposts.value = data
     }
 
     const cleanInputs = () => {
@@ -147,31 +149,48 @@ const app = createApp({
     }
 
     const onInputChange = async (e) => {
-      const id = e.target.value
+      // id from inputEle or spanElement
+      const id = e.target.value || e.target.getAttribute('value')
+
+
+      // spanElement onclick actire the PUT forms
+      selectedMethod.value = 'put'
+
       fetch(`${baseURL}/${id}`)
         .then((r) => r.json())
         .then((data) => {
           console.log(`data`, data)
-          if(data.statusCode === 404){
+          if (data.statusCode === 404) {
             userMessageInput.value = true
             userMessage.value = true
             cleanInputsPUT()
             return
-          }     
-          if (data.statusCode === 200) {        
-            userMessage.value = false  
+          }
+          if (data.statusCode === 200) {
+            userMessage.value = false
             userMessageInput.value = false
+
+            postId.value = data.singleData.id
             name.value = data.singleData.nome
             text.value = data.singleData.TEXT
             age.value = data.singleData.idade
-            userMessage.value = false     
+            userMessage.value = false
           }
-         
         })
     }
 
+    function onclickDelete(id) {
+      // ja envia o id para o ref
+      postId.value = id
+      if (confirm(`Delete item id: ${id}`)) {
+        console.log(`really delete`)
+        // and call the function that deletes
+        handleDelete(baseURL)
+      }
+    }
+
     onMounted(() => {
-      // fetchAPI()
+      fetchAPI()
     })
 
     return {
@@ -185,7 +204,10 @@ const app = createApp({
       postId,
       onInputChange,
       cleanInputsPUT,
-      userMessage, userMessageInput
+      userMessage,
+      userMessageInput,
+      allposts,
+      onclickDelete,
     }
   },
 })
