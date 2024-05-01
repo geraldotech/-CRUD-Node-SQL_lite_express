@@ -104,7 +104,7 @@ export async function selectPessoarouter(req, res) {
       return
     }
 
-    res.json({ statusCode: 200, singleData })
+    res.json(singleData)
   } catch (error) {
     console.error(error)
     res.status(500).json({

@@ -12,6 +12,7 @@ const app = createApp({
     const text = ref('')
     const postId = ref('')
     const userMessage = ref(true)
+    const currentUrl =  window.location.origin
 
     const userMessageInput = ref(false)
     const selectedMethod = ref('post')
@@ -87,6 +88,9 @@ const app = createApp({
         if (ajaxn.status === 200) {
           const resp = JSON.parse(ajaxn.response)
           console.log(resp.message)
+
+          // refetch updated data in DOM
+          fetchAPI()
         }
       }
     }
@@ -122,6 +126,9 @@ const app = createApp({
           if (ajaxn.status === 200) {
             const resp = JSON.parse(ajaxn.response)
             alert(resp.message)
+
+            // refetch updated data in DOM
+            fetchAPI()
           }
         }
       }
@@ -152,7 +159,6 @@ const app = createApp({
       // id from inputEle or spanElement
       const id = e.target.value || e.target.getAttribute('value')
 
-
       // spanElement onclick actire the PUT forms
       selectedMethod.value = 'put'
 
@@ -166,14 +172,16 @@ const app = createApp({
             cleanInputsPUT()
             return
           }
-          if (data.statusCode === 200) {
+          // no dataStatus server return direct object
+          if (!data.statusCode) {
+            console.log(`data is ok`)
             userMessage.value = false
             userMessageInput.value = false
 
-            postId.value = data.singleData.id
-            name.value = data.singleData.nome
-            text.value = data.singleData.TEXT
-            age.value = data.singleData.idade
+            postId.value = data.id
+            name.value = data.nome
+            text.value = data.TEXT
+            age.value = data.idade
             userMessage.value = false
           }
         })
@@ -208,6 +216,7 @@ const app = createApp({
       userMessageInput,
       allposts,
       onclickDelete,
+      currentUrl
     }
   },
 })

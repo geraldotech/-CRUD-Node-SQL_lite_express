@@ -7,7 +7,7 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0" />
-    <title>Test: HTTP Method</title>
+    <title>HTTP Method Admin</title>
     <script
       src="./src/app.js"
       type="module"></script>
@@ -20,7 +20,7 @@
       <a href="/logout">Logout</a>
     </p>
     <h1>handler http method</h1>
-    <p>post, delete, put, get ?</p>
+    <p>post, delete, put</p>
     <pre>
       {
         "nome": "John",
@@ -52,10 +52,7 @@
               value="name" />
           </div>
           <div>
-            <input
-              type="text"
-              v-model="text"
-              placeholder="text" />
+              <textarea name="" id="" cols="45" rows="10" v-model="text" placeholder="your text here"></textarea>
           </div>
           <div>
             <input
@@ -65,8 +62,13 @@
               v-model="age"
               value="12" />
           </div>
-          <div>
+          <div class="formButtons">
             <button>Send Form</button>
+            <button
+            type="button"
+            @click="cleanInputsPUT">
+            Clear
+          </button>
           </div>
         </form>
       </fieldset>
@@ -119,11 +121,13 @@
           </div>
           <div>
             Text:
-            <input
+            <!-- <input
               type="text"
               v-model="text"
               :disabled="userMessage"
-              placeholder="text" />
+              placeholder="text" /> -->
+
+              <textarea name="" id="" cols="45" rows="10" v-model="text" placeholder="your text here" :disabled="userMessage"></textarea>
           </div>
           <div>
             Age:
@@ -135,7 +139,7 @@
               :disabled="userMessage"
               value="12" />
           </div>
-          <div>
+          <div class="formButtons">
             <button :disabled="userMessage">Update</button>
             <button
               type="button"
@@ -147,13 +151,14 @@
         </form>
       </fieldset>
 
-      <p>onClick make request</p>
+      <h2>onClick make request</h2>
       <section class="grid-container">
         <div
           class="cards-grid-item"
           v-for="post in allposts">
           <p>
-            <span>{{post.id}} - {{post.nome}}</span>
+            <span>{{post.id}}</span>
+            <a :href="`${currentUrl}/pessoa/${post.id}`" target="_blank">{{post.nome.slice(0, 26)}}...</a>
           </p>
           <p>
             <span

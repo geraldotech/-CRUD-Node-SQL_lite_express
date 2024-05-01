@@ -16,13 +16,29 @@ html{
 }
 
 
+/* Forms */
+
+textarea {
+  display: block;
+  background-color: transparent;
+  
+}
+
+textarea[disabled]{
+  background-color: #333;
+}
+
+
 form div, select{
   padding: .5rem;
 }
 
-form div input {
+form div input, textarea {
   display: block;
-  width: 30%;
+  width: 100%;
+  max-width: 400px;
+  border: none;
+  border: 1px solid #fff;
 }
 
 input, button {
@@ -32,7 +48,8 @@ input, button {
 
 fieldset{
   margin-top: 20px;
-  border: 1px solid;
+  max-width: 400px;
+  border: none;
 }
 
 .login{
@@ -44,6 +61,14 @@ fieldset{
   border: 1px solid red;
 }
 
+
+
+.formButtons{
+  display: flex;
+  justify-content: space-between;
+}
+
+
 .grid-container{
   display: grid;
   max-width: 600px;
@@ -53,7 +78,7 @@ fieldset{
 }
 
 .cards-grid-item{
-  background-color: lightblue;
+  background-color: rgb(89, 110, 117);
   padding: 5px;
   gap: 20px;
 

@@ -76,6 +76,7 @@ https://marketplace.visualstudio.com/items?itemName=cweijan.vscode-mysql-client2
 ## Protected Routes:
 
 - POST
+- PUT
 - DELETE
   - /admin
   - /logout

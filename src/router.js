@@ -43,7 +43,7 @@ router.post('/pessoa', authMiddleware, insertPessoa)
 router.delete('/pessoa', authMiddleware, deletePessoa)
 
 // previous way to study
-router.put('/pessoa', (req, res) => {
+router.put('/pessoa', authMiddleware, (req, res) => {
   if (req.body && !req.body.id) {
     return res.json({
       statusCode: 400,
