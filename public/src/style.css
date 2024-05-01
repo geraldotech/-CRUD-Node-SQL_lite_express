@@ -7,6 +7,11 @@ form div, select{
   padding: .5rem;
 }
 
+form div input {
+  display: block;
+  width: 30%;
+}
+
 input, button {
   border: 1px solid #fff;
   padding: .5rem;
@@ -19,4 +24,9 @@ fieldset{
 
 .login{
   background: red;
+}
+
+.errorMessage{
+  color: red;
+  border: 1px solid red;
 }

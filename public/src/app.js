@@ -2,19 +2,19 @@ import { createApp, ref, reactive, onMounted } from 'https://unpkg.com/vue@3/dis
 
 const app = createApp({
   setup() {
-    
-    const production = true
+    const production = false
 
-    const baseURL = production ? 'http://143.198.232.51:4000/pessoa' : 'http://localhost:4000/pessoa' 
+    const baseURL = production ? 'http://143.198.232.51:4000/pessoa' : 'http://localhost:4000/pessoa'
     const fetchUrl = production ? `http://143.198.232.51:4000/pessoas` : `http://localhost:4000/pessoas`
-
-
-    console.log(baseURL)
 
     const name = ref('')
     const age = ref('')
+    const text = ref('')
     const postId = ref('')
+    const userMessage = ref(true)
 
+
+    const userMessageInput = ref(false)
     const selectedMethod = ref('post')
 
     const person = reactive({
@@ -23,7 +23,6 @@ const app = createApp({
     })
 
     const handleForm = () => {
-      console.log(selectedMethod.value)
       if (selectedMethod.value == 'post') return handlePost(baseURL)
       if (selectedMethod.value == 'delete') return handleDelete(baseURL)
       if (selectedMethod.value == 'put') return handlePut(baseURL)
@@ -34,9 +33,9 @@ const app = createApp({
       const json = JSON.stringify({
         id: +postId.value,
         nome: name.value,
+        TEXT: text.value,
         idade: age.value,
       })
-
       //ajax
       const ajaxn = new XMLHttpRequest()
       ajaxn.open('PUT', url)
@@ -47,16 +46,22 @@ const app = createApp({
         // Check if the request was a success
         if (this.readyState === XMLHttpRequest.DONE) {
           // Get and convert the responseText into JSON
-          console.log(`Alterado com sucesso! ✅`)
+          console.log(`Successful request ✅`)
 
           cleanInputs()
+
+          // === get all server response ===
+          console.log(`server => `, JSON.parse(ajaxn.response).message)
+          if (ajaxn.status === 200) {
+            const resp = JSON.parse(ajaxn.response)
+            alert(resp.message)
+          }
         }
       }
     }
 
     function handleDelete(url) {
       const id = +postId.value
-      console.log(id)
 
       //ajax
       const ajaxn = new XMLHttpRequest()
@@ -71,9 +76,16 @@ const app = createApp({
       ajaxn.onload = () => {
         if (ajaxn.readyState === XMLHttpRequest.DONE) {
           // Get and convert the responseText into JSON
-          console.log(`Item DELETADO`)
-
+          console.log(`request has been completed, and the response from the server is available. ✅`)
           cleanInputs()
+        }
+
+        // === get all server response ===
+        //alert(`server => `, JSON.parse(ajaxn.response).message)
+        alert(JSON.parse(ajaxn.response).message)
+        if (ajaxn.status === 200) {
+          const resp = JSON.parse(ajaxn.response)
+          console.log(resp.message)
         }
       }
     }
@@ -82,10 +94,9 @@ const app = createApp({
       // datajson
       const json = JSON.stringify({
         nome: name.value,
+        TEXT: text.value,
         idade: age.value,
       })
-
-      console.log(json)
 
       // ajax
       const ajaxn = new XMLHttpRequest()
@@ -98,10 +109,19 @@ const app = createApp({
         // Check if the request was a success
         if (this.readyState === XMLHttpRequest.DONE) {
           // Get and convert the responseText into JSON
-          console.log(`Cadastrado com sucesso! ✅`)
+          console.log(`Successful request ✅`)
 
-          // reset form?
-        //  cleanInputs()
+          // reset form
+          cleanInputs()
+
+          // === get all server response ===
+
+          console.log(`server => `, JSON.parse(ajaxn.response).message)
+
+          if (ajaxn.status === 200) {
+            const resp = JSON.parse(ajaxn.response)
+            alert(resp.message)
+          }
         }
       }
     }
@@ -109,28 +129,63 @@ const app = createApp({
     async function fetchAPI() {
       const req = await fetch(fetchUrl)
       const data = await req.json()
-      console.dir(data)
     }
 
     const cleanInputs = () => {
+      return setTimeout(() => {
+        name.value = ''
+        age.value = ''
+        postId.value = ''
+        text.value = ''
+        userMessage.value = true
+      }, 2000)
+    }
+    const cleanInputsPUT = () => {
       name.value = ''
       age.value = ''
-      postId.value = ''
-      window.location.reload()
+      text.value = ''
+    }
+
+    const onInputChange = async (e) => {
+      const id = e.target.value
+      fetch(`${baseURL}/${id}`)
+        .then((r) => r.json())
+        .then((data) => {
+          console.log(`data`, data)
+          if(data.statusCode === 404){
+            userMessageInput.value = true
+            userMessage.value = true
+            cleanInputsPUT()
+            return
+          }     
+          if (data.statusCode === 200) {        
+            userMessage.value = false  
+            userMessageInput.value = false
+            name.value = data.singleData.nome
+            text.value = data.singleData.TEXT
+            age.value = data.singleData.idade
+            userMessage.value = false     
+          }
+         
+        })
     }
 
     onMounted(() => {
-      fetchAPI()
+      // fetchAPI()
     })
 
     return {
       selectedMethod,
       name,
       age,
+      text,
       handlePost,
       handleDelete,
       handleForm,
       postId,
+      onInputChange,
+      cleanInputsPUT,
+      userMessage, userMessageInput
     }
   },
 })

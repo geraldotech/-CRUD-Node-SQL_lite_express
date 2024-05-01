@@ -40,7 +40,6 @@
         <option value="put">Put</option>
       </select>
 
-
       <fieldset v-show="selectedMethod.includes('post')">
         <legend>POST</legend>
         <form @submit.prevent="handleForm">
@@ -51,6 +50,12 @@
               name="name"
               v-model="name"
               value="name" />
+          </div>
+          <div>
+            <input
+              type="text"
+              v-model="text"
+              placeholder="text" />
           </div>
           <div>
             <input
@@ -68,7 +73,9 @@
 
       <fieldset v-show="selectedMethod == 'delete'">
         <legend>DELETE</legend>
-        <form action="" @submit.prevent="handleForm">
+        <form
+          action=""
+          @submit.prevent="handleForm">
           <input
             type="text"
             placeholder="id"
@@ -79,37 +86,66 @@
         </form>
       </fieldset>
 
+      <!-- put -->
 
-<!-- put -->
-
-<fieldset v-show="selectedMethod == 'put'">
-  <legend>PUT</legend>
-  <form action="" @submit.prevent="handleForm">
-    <div>
-      <input type="text" placeholder="id" v-model="postId">
-    </div>
-    <div>
-      <input
-        type="text"
-        placeholder="name"
-        name="name"
-        v-model="name"
-        value="name" />
-    </div>
-    <div>
-      <input
-        type="text"
-        placeholder="age"
-        name="age"
-        v-model="age"
-        value="12" />
-    </div>
-    <div>
-      <button>Send Form</button>
-    </div>
-  </form>
-</fieldset>
-
+      <fieldset v-show="selectedMethod == 'put'">
+        <legend>PUT</legend>
+        <form
+          action=""
+          @submit.prevent="handleForm">
+          <p
+            v-if="userMessageInput"
+            class="errorMessage">
+            ID not found!
+          </p>
+          <div>
+            EnterID to auto fetch data:
+            <input           
+              type="text"
+              placeholder="id"
+              v-model="postId"
+              @blur="onInputChange"
+              required />
+          </div>
+          <div>
+            Name:
+            <input
+              type="text"
+              placeholder="name"
+              name="name"
+              v-model="name"
+              :disabled="userMessage"
+              value="name" />
+          </div>
+          <div>
+            Text:
+            <input
+              type="text"
+              v-model="text"
+              :disabled="userMessage"
+              placeholder="text" />
+          </div>
+          <div>
+            Age:
+            <input
+              type="text"
+              placeholder="age"
+              name="age"
+              v-model="age"
+              :disabled="userMessage"
+              value="12" />
+          </div>
+          <div>
+            <button  :disabled="userMessage">Update</button>
+            <button
+              type="button"
+              :disabled="userMessage"
+              @click="cleanInputsPUT">
+              Clear
+            </button>
+          </div>
+        </form>
+      </fieldset>
     </div>
 
     <a href="./fetch-auth.html">fetch auth</a>
